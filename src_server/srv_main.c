@@ -6,41 +6,38 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:46:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/09 17:39:45 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/14 13:44:41 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-extern t_srv	*g_srv;
+t_srv		*g_srv;
 
 static void	srv_handle(int sig, siginfo_t *si, void *u)
 {
-	pid_t	spid;
-
 	(void)u;
-	spid = si->si_pid;
-	if (g_srv->sender == 0)
-		g_srv->sender = spid;
-	else if (spid != g_srv->sender)
+	if (g_srv->sender != si->si_pid)
 	{
-		g_srv->cur = 0;
-		g_srv->bit_idx = 0;
-		g_srv->sender = spid;
+		if (g_srv->sender != 0)
+		{
+			g_srv->cur = 0;
+			g_srv->bit_idx = 0;
+		}
+		g_srv->sender = si->si_pid;
 	}
-	g_srv->cur <<= 1;
-	if (sig == BIT1_SIG)
-		g_srv->cur |= 1;
+	g_srv->cur = (g_srv->cur << 1) + (sig == BIT1_SIG);
 	g_srv->bit_idx++;
-	if (g_srv->bit_idx == 8)
-	{
-		g_srv->mb = g_srv->cur;
-		g_srv->mb_full = 1;
-		g_srv->cur = 0;
-		g_srv->bit_idx = 0;
-		kill(g_srv->sender, ACK_SIG);
-		g_srv->flag |= HAVE_BYTE | ((g_srv->mb == '\0') * GOT_NUL);
-	}
+	if ((g_srv->bit_idx & 1) != 0)
+		kill(g_srv->sender, ACK1_SIG);
+	else
+		kill(g_srv->sender, ACK0_SIG);
+	if (g_srv->bit_idx != 8)
+		return ;
+	g_srv->mb = g_srv->cur;
+	g_srv->mb_full = 1;
+	g_srv->cur = 0;
+	g_srv->bit_idx = 0;
 }
 
 static void	srv_setup_handlers(void)
