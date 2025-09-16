@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 15:47:04 by keitabe           #+#    #+#             */
-/*   Updated: 2025/05/07 15:19:16 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/15 11:33:59 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 char				*ft_strnstr(const char *big, const char *little,
 						size_t len);
 int					ft_atoi(const char *nptr);
+long				ft_atol(const char *nptr);
 void				*ft_calloc(size_t count, size_t size);
 char				*ft_strdup(const char *s1);
 

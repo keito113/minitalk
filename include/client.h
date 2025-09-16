@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:43:04 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/14 13:52:51 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/16 08:14:23 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 
 # define _POSIX_C_SOURCE 200809L
 
-# include "ft_printf.h"
-# include "libft.h"
 # include <limits.h>
 # include <signal.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <unistd.h>
 
-typedef enum m_srv
+typedef enum e_srv
 {
 	BIT0_SIG = SIGUSR1,
 	BIT1_SIG = SIGUSR2,
@@ -37,8 +35,12 @@ typedef enum m_srv
 	ACK_TICKS = ACK_WAIT_US / TICK_US,
 	EX_PID = 3,
 	EX_TIMEOUT = 4
-}								t_m_srv;
+}								t_e_srv;
 
 extern volatile sig_atomic_t	g_flag;
+
+void							ack_handler(int sig, siginfo_t *si, void *u);
+int								cli_send_and_wait(pid_t srv, int sigv, int exp);
+int								cli_tx_byte(pid_t srv_pid, unsigned char c);
 
 #endif

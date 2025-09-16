@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:43:58 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/14 13:43:35 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/16 08:13:46 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <sys/types.h>
 # include <unistd.h>
 
-typedef enum m_srv
+typedef enum e_srv
 {
 	BIT0_SIG = SIGUSR1,
 	BIT1_SIG = SIGUSR2,
@@ -31,20 +31,25 @@ typedef enum m_srv
 	ACK0_SIG = SIGUSR1,
 	ACK1_SIG = SIGUSR2,
 	HAVE_BYTE = 1u << 0,
-	GOT_NUL = 1u << 1
-
-}							t_m_srv;
+	GOT_NUL = 1u << 1,
+	RBUFSZ = 4096,
+	RMASK = (RBUFSZ - 1)
+}							t_e_srv;
 
 typedef struct s_srv
 {
-	volatile sig_atomic_t	flag;
 	pid_t					sender;
 	unsigned char			cur;
+	unsigned char			buf[4096];
+	volatile sig_atomic_t	head;
+	volatile sig_atomic_t	tail;
 	int						bit_idx;
-	volatile sig_atomic_t	mb;
-	volatile sig_atomic_t	mb_full;
 }							t_srv;
 
 extern t_srv				*g_srv;
+
+void						srv_push(unsigned char b);
+void						srv_handle(int sig, siginfo_t *si, void *u);
+void						srv_loop(void);
 
 #endif

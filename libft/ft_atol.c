@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:12:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/02 12:43:33 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/15 14:58:35 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ long	ft_atol(const char *nptr)
 	sign = 1;
 	while (*nptr == ' ' || *nptr == '\n' || *nptr == '\t' || *nptr == '\v'
 		|| *nptr == '\f' || *nptr == '\r')
-		
+		nptr++;
 	if (*nptr == '-' || *nptr == '+')
 	{
 		if (*nptr == '-')

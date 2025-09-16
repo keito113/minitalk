@@ -6,7 +6,7 @@
 #    By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/02 11:05:08 by keitabe           #+#    #+#              #
-#    Updated: 2025/09/14 11:31:59 by keitabe          ###   ########.fr        #
+#    Updated: 2025/09/16 08:21:46 by keitabe          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,10 @@ LIBFT     = $(LIBFT_DIR)/libft.a
 NAME_CLIENT = client
 NAME_SERVER = server
 
-SRCS_CLIENT = src_client/cli_main.c
-SRCS_SERVER = src_server/srv_main.c
+SRCS_CLIENT = src_client/cli_main.c \
+              src_client/cli_core.c
+SRCS_SERVER = src_server/srv_main.c \
+              src_server/srv_core.c
 OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
 OBJS_SERVER = $(SRCS_SERVER:.c=.o)
 
