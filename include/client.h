@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 17:43:04 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/16 08:14:23 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/18 08:45:22 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,19 @@
 # include <sys/types.h>
 # include <unistd.h>
 
-typedef enum e_srv
+typedef enum e_cli
 {
 	BIT0_SIG = SIGUSR1,
 	BIT1_SIG = SIGUSR2,
-	ACK_SIG = BIT0_SIG,
 	ACK0_SIG = SIGUSR1,
 	ACK1_SIG = SIGUSR2,
 	ACK_WAIT_US = 300000,
 	ACK_RETRY_MAX = 5,
 	ACK_TMO_MS = 300,
 	TICK_US = 100,
-	ACK_TICKS = ACK_WAIT_US / TICK_US,
 	EX_PID = 3,
 	EX_TIMEOUT = 4
-}								t_e_srv;
+}								t_e_cli;
 
 extern volatile sig_atomic_t	g_flag;
 

@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 08:12:14 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/16 08:13:07 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/18 08:45:31 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,17 @@ void	srv_push(unsigned char b)
 		g_srv->tail = (g_srv->tail + 1) & RMASK;
 	g_srv->buf[g_srv->head] = b;
 	g_srv->head = next;
+	if (b == '\0')
+		g_srv->sender = 0;
 }
 
 void	srv_handle(int sig, siginfo_t *si, void *u)
 {
 	(void)u;
-	if (g_srv->sender != si->si_pid)
-	{
-		if (g_srv->sender != 0)
-		{
-			g_srv->cur = 0;
-			g_srv->bit_idx = 0;
-		}
+	if (g_srv->sender == 0)
 		g_srv->sender = si->si_pid;
-	}
+	else if (si->si_pid != g_srv->sender)
+		return ;
 	g_srv->cur = (g_srv->cur << 1) + (sig == BIT1_SIG);
 	g_srv->bit_idx++;
 	if (g_srv->bit_idx & 1)

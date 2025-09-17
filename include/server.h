@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:43:58 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/16 08:13:46 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/18 08:45:17 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ typedef enum e_srv
 {
 	BIT0_SIG = SIGUSR1,
 	BIT1_SIG = SIGUSR2,
-	ACK_SIG = BIT0_SIG,
 	ACK0_SIG = SIGUSR1,
 	ACK1_SIG = SIGUSR2,
-	HAVE_BYTE = 1u << 0,
-	GOT_NUL = 1u << 1,
 	RBUFSZ = 4096,
 	RMASK = (RBUFSZ - 1)
 }							t_e_srv;
