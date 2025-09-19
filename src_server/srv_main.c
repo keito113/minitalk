@@ -6,13 +6,13 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:46:11 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/18 08:45:33 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:05:23 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-t_srv		*g_srv;
+t_srv		g_srv;
 
 static void	srv_setup_handlers(void)
 {
@@ -34,20 +34,13 @@ static void	srv_setup_handlers(void)
 
 int	main(void)
 {
-	g_srv = (t_srv *)malloc(sizeof(*g_srv));
-	if (!g_srv)
-	{
-		write(1, "[internal] malloc failed\n", 25);
-		exit(5);
-	}
-	g_srv->head = 0;
-	g_srv->tail = 0;
-	g_srv->sender = 0;
-	g_srv->cur = 0;
-	g_srv->bit_idx = 0;
+	g_srv.head = 0;
+	g_srv.tail = 0;
+	g_srv.sender = 0;
+	g_srv.cur = 0;
+	g_srv.bit_idx = 0;
 	ft_printf("server PID: %d\n", (int)getpid());
 	srv_setup_handlers();
 	srv_loop();
-	free(g_srv);
 	return (0);
 }

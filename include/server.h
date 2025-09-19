@@ -6,7 +6,7 @@
 /*   By: keitabe <keitabe@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 13:43:58 by keitabe           #+#    #+#             */
-/*   Updated: 2025/09/18 08:45:17 by keitabe          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:43:12 by keitabe          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_srv
 	int						bit_idx;
 }							t_srv;
 
-extern t_srv				*g_srv;
+extern t_srv				g_srv;
 
 void						srv_push(unsigned char b);
 void						srv_handle(int sig, siginfo_t *si, void *u);
